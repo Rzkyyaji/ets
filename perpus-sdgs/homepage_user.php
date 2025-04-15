@@ -1,10 +1,10 @@
 <?php
 session_start();
-include 'koneksi.php'; // file koneksi ke database
+include 'koneksi.php';
 
-// Pastikan user sudah login
+
 if (!isset($_SESSION['email'])) {
-    header('Location: login.php');
+    header('Location: UserLogin.php');
     exit();
 }
 

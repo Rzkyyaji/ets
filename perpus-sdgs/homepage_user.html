@@ -8,6 +8,20 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
 </head>
+<script>
+  window.onload = function() {
+    fetch('get_user_email.php')
+      .then(response => response.json())
+      .then(data => {
+        if (data.email) {
+          document.getElementById('emailField').value = data.email;
+        } else {
+          window.location.href = 'UserLogin.php'; // jika tidak login
+        }
+      })
+      .catch(error => console.error('Gagal mengambil email:', error));
+  };
+</script>
 
 <body>
   <header>
@@ -38,11 +52,11 @@
   <!-- Profile Edit Section (disembunyikan default) -->
   <section class="profile-section" id="profileSection" style="display: none;">
     <h2>Edit Profil</h2>
-    <form action="updatxe_profile.php" method="POST">
+    <form action="UpdateProfile.php" method="POST">
       <label for="email">Email (tidak bisa diubah):</label>
       <!-- Tetap read-only tapi tetap di POST -->
-      <input type="email" name="email" 
-             value="<?php echo $_SESSION['email']; ?>" 
+      <input type="email" name="email" id="emailField" readonly>
+
              readonly>
       
       <label for="username">Username Baru:</label>
