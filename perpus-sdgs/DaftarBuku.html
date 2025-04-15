@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Daftar Buku</title>
+    <link rel="stylesheet" href="styleDaftarBuku.css">
+</head>
+<body>
+    <header>
+        <div class="logo">Perpustakaan Desa</div>
+        <nav>
+          <ul>
+            <li><a href="homepage.html">Home</a></li>
+            <li><a href="DaftarBuku.html">Books</a></li>
+            <li><a href="UserLogin.html">Login</a></li>
+          </ul>
+        </nav>
+      </header>
+    <h2>Daftar Buku Perpustakaan</h2>
+    <div id="book-table">
+        <p>Memuat data buku...</p>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            fetch("DaftarBuku.php")
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById("book-table").innerHTML = data;
+                })
+                .catch(error => {
+                    document.getElementById("book-table").innerHTML = "Gagal memuat data buku.";
+                    console.error("Terjadi kesalahan:", error);
+                });
+        });
+    </script>
+
+</body>
+</html>

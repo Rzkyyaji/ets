@@ -1,0 +1,32 @@
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="LoginStyle.css" />
+</head>
+<body>
+  <header>
+    <div class="logo">Library</div>
+    <nav>
+      <ul>
+        <li><a href="homepage.html">Home</a></li>
+        <li><a href="DaftarBuku.html">Books</a></li>
+        <li><a href="UserLogin.html">Login</a></li>
+      </ul>
+    </nav>
+  </header>
+<main>
+<form method="POST" action="UserLogin.php">
+  <h1 align="center" class="judul-login">Login</h1>
+    <input type="email" name="email" placeholder="Email" required>
+    <input type="password" name="password" placeholder="Password" required>
+    
+    <button type="submit" name="login">Login</button>
+    <h5 align="center" class="belum-punya-akun">
+      Belum punya akun?
+      <a href="UserRegister.html">Register</a>
+    </h5>
+</form>
+</main>
+</body>
+</html>

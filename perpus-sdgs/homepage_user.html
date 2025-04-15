@@ -1,0 +1,68 @@
+<!-- homepage_user.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Library Homepage - User</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <header>
+    <div class="logo">Perpustakaan Desa</div>
+    <nav>
+      <ul>
+        <li><a href="homepage_user.html">Home</a></li>
+        <li><a href="DaftarBukuUser.html">Books</a></li>
+        <li><a href="#" onclick="toggleProfile()">Profil</a></li>
+        <li><a href="UserLogout.php">Logout</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div class="hero-text">
+      <h1>Selamat Datang di Perpustakaan</h1>
+      <p>
+        Selamat datang di Perpustakaan Digital! Kami senang melihat Anda kembali. Di sini, Anda memiliki akses ke berbagai koleksi buku dan referensi yang dapat membantu memperkaya wawasan serta mendukung penelitian Anda. Selain membaca, Anda juga memiliki kesempatan untuk mengedit informasi buku yang tersedia, memastikan data selalu akurat dan terkini. Gunakan fitur pencarian untuk menemukan buku yang Anda butuhkan, dan jangan ragu untuk melakukan pembaruan jika diperlukan. Semoga pengalaman Anda di perpustakaan ini semakin nyaman dan bermanfaat! 
+      </p>
+      <button>Jelajahi Buku</button>
+    </div>
+    <div class="hero-image">
+      <img src="profilperpus.jpeg" alt="Library Image" />
+    </div>
+  </section>
+
+  <!-- Profile Edit Section (disembunyikan default) -->
+  <section class="profile-section" id="profileSection" style="display: none;">
+    <h2>Edit Profil</h2>
+    <form action="updatxe_profile.php" method="POST">
+      <label for="email">Email (tidak bisa diubah):</label>
+      <!-- Tetap read-only tapi tetap di POST -->
+      <input type="email" name="email" 
+             value="<?php echo $_SESSION['email']; ?>" 
+             readonly>
+      
+      <label for="username">Username Baru:</label>
+      <input type="text" name="username" placeholder="(masukkan username lama jika tidak ingin mengubah username)" required>
+  
+      <label for="old_password">Password Lama:</label>  
+      <input type="password" name="old_password" placeholder="Masukkan password lama"required>
+  
+      <label for="new_password">Password Baru:</label>
+      <input type="password" name="new_password" placeholder="Masukkan password baru"required>
+  
+      <button type="submit">Perbarui Profil</button>
+    </form>
+  </section>
+
+  <script>
+    function toggleProfile() {
+      const section = document.getElementById("profileSection");
+      section.style.display = (section.style.display === "none") ? "block" : "none";
+    }
+  </script>
+</body>
+</html>

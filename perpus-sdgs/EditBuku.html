@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Daftar Buku</title>
+    <link rel="stylesheet" href="styleDaftarBuku.css">
+</head>
+<body>
+    <header>
+        <div class="logo">Perpustakaan Desa</div>
+        <nav>
+          <ul>
+            <li><a href="homepage_user.html">Home</a></li>
+            <li><a href="DaftarBukuUser.html">Books</a></li>
+          </ul>
+        </nav>
+      </header>
+    <h2>Daftar Buku Perpustakaan</h2>
+    <div id="book-table">
+        <p>Memuat data buku...</p>
+    </div>
+
+    <?php
+session_start();
+if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
+?>
+  <section class="form-tambah-buku">
+    <h2>Tambah Buku</h2>
+    <form action="tambah.php" method="POST" enctype="multipart/form-data">
+      <input type="text" name="judul" placeholder="Judul Buku" required><br>
+      <input type="text" name="penulis" placeholder="Penulis" required><br>
+      <input type="text" name="penerbit" placeholder="Penerbit" required><br>
+      <input type="number" name="tahun_terbit" placeholder="Tahun Terbit" required><br>
+      <input type="file" name="cover"><br>
+      <button type="submit" name="submit">Tambah Buku</button>
+    </form>
+  </section>
+<?php } ?>
+</body>
+</html>
