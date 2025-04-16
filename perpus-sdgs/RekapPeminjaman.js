@@ -2,8 +2,13 @@ document.addEventListener("DOMContentLoaded", function () {
     fetch("RekapPeminjaman.php")
         .then(response => response.text())
         .then(data => {
-            document.getElementById("rekap-container").innerHTML = data;
-            pasangEventTombolKembali();
+            // Memastikan jika tidak ada data peminjaman
+            if (data.includes("Belum ada data peminjaman")) {
+                window.location.href = 'DaftarBukuUser.html'; // Arahkan ke DaftarBukuUser.html langsung
+            } else {
+                document.getElementById("rekap-container").innerHTML = data;
+                pasangEventTombolKembali();
+            }
         })
         .catch(error => {
             document.getElementById("rekap-container").innerHTML = "Gagal memuat data rekap.";
@@ -12,23 +17,27 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function pasangEventTombolKembali() {
+    // Mengambil semua tombol dengan kelas 'btn-kembali'
     document.querySelectorAll(".btn-kembali").forEach(button => {
         button.addEventListener("click", function () {
-            const borrowId = this.getAttribute("data-id");
-            const bookId = this.getAttribute("data-book-id");
+            const id = this.getAttribute("data-id");
+            const book_id = this.getAttribute("data-book-id");
 
-            fetch("ProsesPengembalian.php", {
+            // Mengirimkan data pengembalian ke server menggunakan fetch POST
+            fetch("RekapPeminjaman.php", {
                 method: "POST",
                 headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                body: "borrow_id=" + encodeURIComponent(borrowId) + "&book_id=" + encodeURIComponent(bookId)
+                body: "id=" + encodeURIComponent(id) + "&book_id=" + encodeURIComponent(book_id)
             })
             .then(response => response.text())
-            .then(result => {
-                alert(result);
-                location.reload();
+            .then(msg => {
+                alert(msg); // Menampilkan pesan setelah pengembalian berhasil
+                // Mengarahkan kembali ke halaman RekapPeminjaman.html
+                window.location.href = "RekapPeminjaman.html";
             })
             .catch(error => {
-                console.error("Gagal proses pengembalian:", error);
+                console.error("Error saat mengembalikan buku:", error);
+                alert("Terjadi kesalahan. Coba lagi.");
             });
         });
     });
