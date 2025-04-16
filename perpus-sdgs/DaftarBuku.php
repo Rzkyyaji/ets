@@ -19,9 +19,10 @@ if (mysqli_num_rows($result) > 0) {
             </tr>";
 
     while ($row = mysqli_fetch_assoc($result)) {
-         $cover = isset($row['cover']) && $row['cover'] !== ''
-             ? "<img src='uploads/" . htmlspecialchars($row['cover']) . "' width='80' height='100'>"
-             : "Tidak ada cover";
+        $coverPath = "Cover/" . htmlspecialchars($row['cover_image']);
+        $cover = (!empty($row['cover_image']) && file_exists($coverPath))
+            ? "<img src='$coverPath' width='80' height='100'>"
+            : "Tidak ada cover";
 
         echo "<tr>
                 <td>$cover</td>
