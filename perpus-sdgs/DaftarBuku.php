@@ -19,7 +19,7 @@ if (mysqli_num_rows($result) > 0) {
                 <th>Tahun</th>
                 <th>ISBN</th>
                 <th>Kategori</th>
-                <th>Stok</th>";
+                <th>Stock</th>";
 
     // Tambahkan kolom aksi jika admin
     if ($isAdmin) {
