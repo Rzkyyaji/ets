@@ -133,8 +133,8 @@ table td {
   vertical-align: middle;
 }
 
-#judul-page-books {
-  margin-top: 40px;
+.judul-page-books {
+  margin-top: 12px;
   text-align: left;
   animation: fadeInDown 1500ms ease-in-out;
   font-size: 38px;
