@@ -17,12 +17,21 @@
     align-items: center;
     padding: 20px 60px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    position: sticky;
+    top: 0;            /* nempel di atas viewport */
+    z-index: 1000;     /* agar selalu di atas konten lain */
+    background-color: #edfafd; /* samakan dengan bg header */
+    width: 100%;
   }
   
   .logo {
     font-size: 25px;
     font-weight: 700;
     color: #135589;
+    position: sticky;
+    top: 0;            
+    z-index: 1000;     
+    background-color: #eaf4ee;
   }
   
   nav ul {

@@ -17,6 +17,11 @@ header {
   align-items: center;
   padding: 20px 60px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  position: sticky;
+  top: 0;            
+  z-index: 1000;     
+  background-color: #edfafd; 
+  width: 100%;
 }
 
 .logo {
@@ -121,3 +126,73 @@ form button:hover {
   color: #135589;
 }
 
+/* ===== Footer ===== */
+.site-footer {
+  background-color: #135589;   /* warna gelap */
+  color: #edfafd;              /* teks terang */
+  padding: 40px 20px 20px;     /* ruang atas lebih besar */
+  font-family: 'Inter', sans-serif;
+}
+
+.footer-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+  gap: 40px;
+}
+
+.footer-brand {
+  flex: 1 1 250px;
+}
+
+.footer-brand .logo {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.footer-brand p {
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.footer-contact {
+  flex: 1 1 200px;
+}
+
+.footer-contact h3 {
+  font-size: 20px;
+  margin-bottom: 12px;
+}
+
+.footer-contact ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-contact li {
+  margin-bottom: 8px;
+}
+
+.footer-contact a {
+  color: #edfafd;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.footer-contact a:hover {
+  color: #a0c5d8;               /* warna hover yang lebih poyeh */
+  transform: translateX(4px);   /* geser sedikit ke kanan */
+}
+
+.footer-bottom {
+  text-align: center;
+  font-size: 14px;
+  margin-top: 30px;
+  border-top: 1px solid rgba(237, 250, 253, 0.3);
+  padding-top: 16px;
+}
