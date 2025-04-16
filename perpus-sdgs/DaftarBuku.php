@@ -49,7 +49,7 @@ if (mysqli_num_rows($result) > 0) {
 
         if ($isAdmin) {
             echo "<td><a href='EditBuku.html?id=" . $row['id'] . "'>Edit</a></td>";
-           
+
         }
 
         echo "</tr>";
