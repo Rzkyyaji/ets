@@ -36,6 +36,14 @@
     </nav>
   </header>
 
+  <section class="image-slider">
+    <div class="slider-container">
+      <img src="kantin.jpeg" alt="Slide 1" class="slide active" />
+      <img src="ruangbelajar.jpeg" alt="Slide 2" class="slide" />
+      <img src="rakbuku.png" alt="Slide 3" class="slide" />
+    </div>  
+  </section>
+
   <section class="hero">
     <div class="hero-text">
       <h1>Selamat Datang di Perpustakaan</h1>
@@ -79,4 +87,17 @@
     }
   </script>
 </body>
+<script>
+  let slideIndex = 0;
+  const slides = document.querySelectorAll(".slide");
+
+  function showSlides() {
+    slides.forEach((slide, index) => {
+      slide.classList.remove("active");
+    });
+    slideIndex = (slideIndex + 1) % slides.length;
+    slides[slideIndex].classList.add("active");
+  }
+
+  setInterval(showSlides, 3000); // ganti setiap 3 detik
 </html>
