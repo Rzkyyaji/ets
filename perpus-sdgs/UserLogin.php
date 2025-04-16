@@ -25,6 +25,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             exit();
         } else {
             echo "Password salah!";
+            echo "<script>
+            setTimeout(function() {
+                window.location.href = 'UserLogin.html';
+            }, 2000); // 2000 milidetik = 2 detik
+        </script>";
         }
     } else {
         echo "Email tidak ditemukan!";
