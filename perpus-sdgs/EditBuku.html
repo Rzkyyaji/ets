@@ -1,40 +1,68 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <title>Daftar Buku</title>
-    <link rel="stylesheet" href="styleDaftarBuku.css">
+  <meta charset="UTF-8">
+  <title>Edit Buku</title>
+  <link rel="stylesheet" href="styleDaftarBuku.css">
 </head>
 <body>
-    <header>
-        <div class="logo">Perpustakaan Desa</div>
-        <nav>
-          <ul>
-            <li><a href="homepage_user.html">Home</a></li>
-            <li><a href="DaftarBukuUser.html">Books</a></li>
-          </ul>
-        </nav>
-      </header>
-    <h2>Daftar Buku Perpustakaan</h2>
-    <div id="book-table">
-        <p>Memuat data buku...</p>
-    </div>
+  <h2>Edit Buku</h2>
 
-    <?php
-session_start();
-if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
-?>
-  <section class="form-tambah-buku">
-    <h2>Tambah Buku</h2>
-    <form action="tambah.php" method="POST" enctype="multipart/form-data">
-      <input type="text" name="judul" placeholder="Judul Buku" required><br>
-      <input type="text" name="penulis" placeholder="Penulis" required><br>
-      <input type="text" name="penerbit" placeholder="Penerbit" required><br>
-      <input type="number" name="tahun_terbit" placeholder="Tahun Terbit" required><br>
-      <input type="file" name="cover"><br>
-      <button type="submit" name="submit">Tambah Buku</button>
-    </form>
-  </section>
-<?php } ?>
+  <form id="editForm" method="post" action="EditBuku.php" enctype="multipart/form-data">
+    <input type="hidden" name="id" id="id">
+
+    <label>Judul:</label>
+    <input type="text" name="judul" id="judul" required><br>
+
+    <label>Penulis:</label>
+    <input type="text" name="penulis" id="penulis" required><br>
+
+    <label>Tahun:</label>
+    <input type="number" name="tahun" id="tahun" required><br>
+
+    <label>Kategori:</label>
+    <input type="text" name="kategori" id="kategori" required><br>
+
+    <label>Deskripsi:</label>
+    <textarea name="deskripsi" id="deskripsi" required></textarea><br>
+
+    <label>Cover (Opsional):</label>
+    <input type="file" name="cover"><br>
+
+    <input type="submit" name="submit" value="Update">
+  </form>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const urlParams = new URLSearchParams(window.location.search);
+      const id = urlParams.get("id");
+
+      if (!id) {
+        alert("ID buku tidak ditemukan!");
+        return;
+      }
+
+      // Set ID ke field tersembunyi
+      document.getElementById("id").value = id;
+
+      // Ambil data buku dari PHP
+      fetch("EditBuku.php?id=" + id)
+        .then(response => response.json())
+        .then(data => {
+          if (data.error) {
+            alert(data.error);
+            return;
+          }
+          document.getElementById("judul").value = data.judul;
+          document.getElementById("penulis").value = data.penulis;
+          document.getElementById("tahun").value = data.tahun;
+          document.getElementById("kategori").value = data.kategori;
+          document.getElementById("deskripsi").value = data.deskripsi;
+        })
+        .catch(error => {
+          console.error("Gagal fetch data buku:", error);
+        });
+    });
+  </script>
 </body>
 </html>
