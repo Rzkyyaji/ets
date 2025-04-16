@@ -1,0 +1,123 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+}
+
+body {
+  background-color: #aed9da;
+  color: #2b2b2b;
+}
+
+header {
+  background-color: #edfafd;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 60px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: 700;
+  color: #135589;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+nav ul li a {
+  text-decoration: none;
+  color: #2b2b2b;
+  font-weight: 400;
+  transition: font-weight 0.3s ease, color 0.3s ease, transform 0.3s ease;
+  display: inline-block;
+}
+
+nav ul li a:hover {
+  font-weight: 700;
+  color: #135589;
+  transform: scale(1.2); 
+}
+
+
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh;
+}
+
+form {
+  width: 100%;
+  max-width: 400px;
+  background-color: #fff;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+form h2 {
+  text-align: center;
+  color: #135589;
+}
+
+form input {
+  padding: 12px 16px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: 0.3s ease;
+}
+
+form input:focus {
+  border-color: #135589;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(0, 75, 73, 0.1);
+}
+
+form button {
+  padding: 12px;
+  background-color: #135589;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+form button:hover {
+  padding: 12px;
+  background-color: #135589;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.judul-login {
+  margin-bottom: 16px;
+  color: #2b2b2b;
+}
+
+.belum-punya-akun{
+  font-weight: normal;
+  margin-top: 12px;
+}
+
+.belum-punya-akun a{
+  text-decoration: none;
+  color: #135589;
+}
+

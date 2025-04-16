@@ -2,12 +2,16 @@
 session_start();
 include 'koneksi.php';
 
+// Memeriksa apakah user sudah login dan apakah role-nya adalah admin
+$isAdmin = isset($_SESSION['role']) && $_SESSION['role'] === 'admin';
+
 $query = "SELECT * FROM books";
 $result = mysqli_query($koneksi, $query);
 
 if (mysqli_num_rows($result) > 0) {
     echo "<table border='1' cellpadding='8'>
             <tr>
+                <th>ID</th>
                 <th>Cover</th>
                 <th>Judul</th>
                 <th>Penulis</th>
@@ -15,15 +19,23 @@ if (mysqli_num_rows($result) > 0) {
                 <th>Tahun</th>
                 <th>ISBN</th>
                 <th>Kategori</th>
-                <th>Stok</th>
-            </tr>";
+                <th>Stock</th>";
+
+    // Tambahkan kolom aksi jika admin
+    if ($isAdmin) {
+        echo "<th>Actions</th>";
+    }
+
+    echo "</tr>";
 
     while ($row = mysqli_fetch_assoc($result)) {
-         $cover = isset($row['cover']) && $row['cover'] !== ''
-             ? "<img src='uploads/" . htmlspecialchars($row['cover']) . "' width='80' height='100'>"
-             : "Tidak ada cover";
+        $coverPath = "Cover/" . htmlspecialchars($row['cover_image']);
+        $cover = (!empty($row['cover_image']) && file_exists($coverPath))
+            ? "<img src='$coverPath' width='80' height='100'>"
+            : "Tidak ada cover";
 
         echo "<tr>
+                <td>" . htmlspecialchars($row['id']) . "</td>
                 <td>$cover</td>
                 <td>" . htmlspecialchars($row['title']) . "</td>
                 <td>" . htmlspecialchars($row['author']) . "</td>
@@ -31,8 +43,13 @@ if (mysqli_num_rows($result) > 0) {
                 <td>" . htmlspecialchars($row['year']) . "</td>
                 <td>" . htmlspecialchars($row['isbn']) . "</td>
                 <td>" . htmlspecialchars($row['category']) . "</td>
-                <td>" . htmlspecialchars($row['stock']) . "</td>
-              </tr>";
+                <td>" . htmlspecialchars($row['stock']) . "</td>";
+
+        if ($isAdmin) {
+            echo "<td><a href='EditBuku.html?id=" . $row['id'] . "'>Edit</a></td>";
+        }
+
+        echo "</tr>";
     }
 
     echo "</table>";
