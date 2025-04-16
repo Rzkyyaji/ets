@@ -1,11 +1,9 @@
 <?php
 session_start();
 include 'koneksi.php';
-
-// Memeriksa apakah user sudah login dan apakah role-nya adalah admin
+// Cek role dari session
 $isAdmin = isset($_SESSION['role']) && $_SESSION['role'] === 'admin';
-//memerika user
-$isUser = isset($_SESSION['role']) && $_SESSION['role'] == 'user';
+$isUser  = isset($_SESSION['role']) && $_SESSION['role'] === 'anggota';
 
 $query = "SELECT * FROM books";
 $result = mysqli_query($koneksi, $query);
@@ -23,9 +21,9 @@ if (mysqli_num_rows($result) > 0) {
                 <th>Kategori</th>
                 <th>Stock</th>";
 
-    // Tambahkan kolom aksi jika admin
-    if ($isAdmin) {
-        echo "<th>Actions</th>";
+    // Kolom aksi hanya jika admin atau user login
+    if ($isAdmin || $isUser) {
+        echo "<th>Aksi</th>";
     }
 
     echo "</tr>";
@@ -47,10 +45,11 @@ if (mysqli_num_rows($result) > 0) {
                 <td>" . htmlspecialchars($row['category']) . "</td>
                 <td>" . htmlspecialchars($row['stock']) . "</td>";
 
-        if ($isAdmin) {
-            echo "<td><a href='EditBuku.html?id=" . $row['id'] . "'>Edit</a></td>";
-
-        }
+                if ($isAdmin) {
+                    echo "<td><a href='EditBuku.html?id=" . $row['id'] . "'>Edit</a></td>";
+                } elseif ($isUser) {
+                    echo "<td><a href='Peminjaman.html?id=" . $row['id'] . "'>Pinjam</a></td>";
+                }                
 
         echo "</tr>";
     }
