@@ -2,49 +2,77 @@
 session_start();
 include 'koneksi.php';
 
-if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
+header('Content-Type: application/json');
+
+// Cek login dan role admin
+if (!isset($_SESSION['user_id']) || !isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
     http_response_code(403);
-    echo "Akses ditolak.";
+    echo json_encode(['error' => 'Akses ditolak. Halaman ini hanya untuk admin.']);
     exit;
 }
 
-$query = "SELECT borrowings.id AS borrowing_id, borrowings.book_id, users.name, books.title, borrowings.borrow_date, borrowings.return_date 
-          FROM borrowings 
-          JOIN users ON borrowings.user_id = users.id 
-          JOIN books ON borrowings.book_id = books.id 
-          WHERE borrowings.status = 'dipinjam'";
+// Ambil data peminjaman
+if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+    $query = "SELECT borrowings.id AS borrowing_id, borrowings.book_id, books.title, users.name, 
+                     borrowings.borrow_date, borrowings.return_date, borrowings.status 
+              FROM borrowings 
+              JOIN books ON borrowings.book_id = books.id 
+              JOIN users ON borrowings.user_id = users.id";
 
-$result = mysqli_query($koneksi, $query);
+    $result = mysqli_query($koneksi, $query);
+    $data = [];
 
-// Jika tidak ada data peminjaman
-// Jika tidak ada data peminjaman
-if (mysqli_num_rows($result) == 0) {
-    echo "<p>Belum ada data peminjaman.</p>";
+    if ($result) {
+        while ($row = mysqli_fetch_assoc($result)) {
+            $data[] = $row;
+        }
+        echo json_encode($data);
+    } else {
+        http_response_code(500);
+        echo json_encode(['error' => 'Query gagal: ' . mysqli_error($koneksi)]);
+    }
     exit;
 }
 
-if (mysqli_num_rows($result) > 0) {
-    echo "<table border='1' cellpadding='8'>
-            <tr>
-                <th>ID</th>
-                <th>Nama Peminjam</th>
-                <th>Judul Buku</th>
-                <th>Tanggal Pinjam</th>
-                <th>Tanggal Kembali</th>
-                <th>Aksi</th>
-            </tr>";
+// Proses pengembalian
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $id = intval($_POST['id']);
+    $book_id = intval($_POST['book_id']);
+    $today = date('Y-m-d');
 
-    while ($row = mysqli_fetch_assoc($result)) {
-        echo "<tr>
-                <td>" . htmlspecialchars($row['borrowing_id']) . "</td>
-                <td>" . htmlspecialchars($row['name']) . "</td>
-                <td>" . htmlspecialchars($row['title']) . "</td>
-                <td>" . htmlspecialchars($row['borrow_date']) . "</td>
-                <td>" . htmlspecialchars($row['return_date']) . "</td>
-                <td><button class='btn-kembali' data-id='" . $row['borrowing_id'] . "' data-book-id='" . $row['book_id'] . "'>Kembalikan</button></td>
-            </tr>";
+    // Ambil stok buku saat ini
+    $query = "SELECT stock FROM books WHERE id = $book_id";
+    $result = mysqli_query($koneksi, $query);
+    if ($result && mysqli_num_rows($result) > 0) {
+        $row = mysqli_fetch_assoc($result);
+        $current_stock = $row['stock'];
+
+        // Tambah stok buku
+        $new_stock = $current_stock + 1;
+
+        // Update stok buku di tabel books
+        $update_stock_query = "UPDATE books SET stock = $new_stock WHERE id = $book_id";
+        if (mysqli_query($koneksi, $update_stock_query)) {
+            // Update status peminjaman menjadi 'Dikembalikan'
+            $update_borrowing_query = "UPDATE borrowings 
+                                       SET status='Dikembalikan', return_date='$today' 
+                                       WHERE id = $id AND book_id = $book_id";
+
+            if (mysqli_query($koneksi, $update_borrowing_query)) {
+                echo json_encode(['message' => 'Buku berhasil dikembalikan dan stok diperbarui.']);
+            } else {
+                http_response_code(500);
+                echo json_encode(['error' => 'Gagal mengupdate status peminjaman.']);
+            }
+        } else {
+            http_response_code(500);
+            echo json_encode(['error' => 'Gagal mengupdate stok buku.']);
+        }
+    } else {
+        http_response_code(500);
+        echo json_encode(['error' => 'Buku tidak ditemukan.']);
     }
 
-    echo "</table>";
+    exit;
 }
 ?>

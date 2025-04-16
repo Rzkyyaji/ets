@@ -12,7 +12,7 @@ if (!isset($_SESSION['user_id'])) {
 $user_id = $_SESSION['user_id'];
 
 // Query untuk mengambil data peminjaman buku dari database berdasarkan user_id
-$query = "SELECT borrowings.id AS borrowing_id, borrowings.book_id, books.title, borrowings.borrow_date, borrowings.actual_return_date, borrowings.status 
+$query = "SELECT borrowings.id AS borrowing_id, borrowings.book_id, books.title, borrowings.borrow_date, borrowings.return_date, borrowings.status 
           FROM borrowings 
           JOIN books ON borrowings.book_id = books.id 
           WHERE borrowings.user_id = $user_id";

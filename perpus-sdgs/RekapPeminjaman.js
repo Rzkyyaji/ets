@@ -1,22 +1,59 @@
 document.addEventListener("DOMContentLoaded", function () {
     fetch("RekapPeminjaman.php")
-        .then(response => response.text())
+        .then(response => response.json())
         .then(data => {
-            document.getElementById("rekap-container").innerHTML = data;
+            const container = document.getElementById("rekap-container");
 
-            // Cek apakah data kosong atau mengandung pesan 'Belum ada data peminjaman'
-            if (data.includes('Belum ada data peminjaman') || !data.trim()) {
-                // Jika kosong, arahkan ke halaman DaftarBukuUser.html
-                setTimeout(function() {
-                    window.location.href = 'DaftarBukuUser.html';
-                }, 2000); // Tunggu 2 detik sebelum pindah
-            } else {
-                pasangEventTombolKembali(); // Pasang event tombol kembali jika data ada
+            if (data.length === 0) {
+                container.innerHTML = "<p>Belum ada data peminjaman.</p>";
+                setTimeout(() => window.location.href = "DaftarBukuUser.html", 2000);
+                return;
             }
+
+            const table = document.createElement("table");
+            table.border = "1";
+
+            const header = document.createElement("tr");
+            header.innerHTML = "<th>ID</th><th>Judul Buku</th><th>Tgl Pinjam</th><th>Tgl Kembali</th><th>Status</th><th>Aksi</th>";
+            table.appendChild(header);
+
+            data.forEach(item => {
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                    <td>${item.borrowing_id}</td>
+                    <td>${item.title}</td>
+                    <td>${item.borrow_date}</td>
+                    <td>${item.return_date ? item.return_date : "-"}</td>
+                    <td>${item.status}</td>
+                    <td>
+                        <!-- Tombol Kembalikan hanya muncul jika status bukan 'Dikembalikan' -->
+                        ${item.status !== 'Dikembalikan' ? `<button class="btn-kembali" data-id="${item.borrowing_id}" data-book-id="${item.book_id}">Kembalikan</button>` : ''}
+                    </td>
+                `;
+                table.appendChild(row);
+            });
+
+            container.innerHTML = '';
+            container.appendChild(table);
+
+            // Tambahkan tombol kembali ke beranda
+            const backButton = document.createElement("a");
+            backButton.href = "DaftarBukuUser.html";
+            backButton.textContent = "← Kembali ke Beranda";
+            backButton.style.display = "inline-block";
+            backButton.style.marginTop = "20px";
+            backButton.style.padding = "8px 12px";
+            backButton.style.backgroundColor = "#4CAF50";
+            backButton.style.color = "white";
+            backButton.style.textDecoration = "none";
+            backButton.style.borderRadius = "4px";
+
+            container.appendChild(backButton);  // Menambahkan tombol kembali setelah tabel
+            pasangEventTombolKembali();
         })
         .catch(error => {
+            console.error("Gagal memuat data:", error);
             document.getElementById("rekap-container").innerHTML = "Gagal memuat data rekap.";
-            console.error("Error:", error);
         });
 });
 
@@ -29,12 +66,12 @@ function pasangEventTombolKembali() {
             fetch("RekapPeminjaman.php", {
                 method: "POST",
                 headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                body: "id=" + encodeURIComponent(id) + "&book_id=" + encodeURIComponent(book_id)
+                body: `id=${encodeURIComponent(id)}&book_id=${encodeURIComponent(book_id)}`
             })
             .then(response => response.text())
             .then(msg => {
                 alert(msg);
-                window.location.href = "RekapPeminjaman.html"; // Arahkan kembali ke halaman rekap
+                window.location.reload();
             });
         });
     });
