@@ -45,7 +45,7 @@ if (mysqli_num_rows($result) > 0) {
 
         // Menampilkan tombol edit hanya jika user adalah admin
         if ($isAdmin) {
-            echo "<td><a href='editBuku.php?id=" . $row['id'] . "'>Edit</a></td>";
+            echo "<td><a href='EditBuku.html?id=" . $row['id'] . "'>Edit</a></td>";
         }
 
         echo "</tr>";
