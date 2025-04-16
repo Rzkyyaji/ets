@@ -7,7 +7,7 @@
   
   body {
     background-color: #aed9da;
-    color: #aed9da;
+    color: #2b2b2b;
   }
   
   header {
@@ -20,18 +20,17 @@
     position: sticky;
     top: 0;            /* nempel di atas viewport */
     z-index: 1000;     /* agar selalu di atas konten lain */
-    background-color: #edfafd; /* samakan dengan bg header */
+    background-color: #135589; /* samakan dengan bg header */
     width: 100%;
   }
   
   .logo {
     font-size: 25px;
     font-weight: 700;
-    color: #135589;
+    color: #edfafd;
     position: sticky;
     top: 0;            
     z-index: 1000;     
-    background-color: #edfafd;
   }
   
   nav ul {
@@ -42,7 +41,7 @@
   
   nav ul li a {
     text-decoration: none;
-    color: #2b2b2b;
+    color: #edfafd;
     font-weight: 400;
     transition: font-weight 0.3s ease, color 0.3s ease, transform 0.5s ease;
     display: inline-block; 
@@ -50,7 +49,7 @@
   
   nav ul li a:hover {
     font-weight: 800;
-    color: #135589;
+    color: #edfafd;
     transform: scale(1.2); /* efek zoom */
   }
   
@@ -199,8 +198,8 @@
   
   /* ===== Footer ===== */
 .site-footer {
-  background-color: #edfafd;   /* warna gelap */
-  color: #135589;              /* teks terang */
+  background-color: #135589;   /* warna gelap */
+  color: #edfafd;              /* teks terang */
   padding: 40px 20px 20px;     /* ruang atas lebih besar */
   font-family: 'Inter', sans-serif;
 }
@@ -249,7 +248,7 @@
 }
 
 .footer-contact a {
-  color: #135589;
+  color: #edfafd;
   text-decoration: none;
   font-weight: 500;
   transition: color 0.2s ease, transform 0.2s ease;

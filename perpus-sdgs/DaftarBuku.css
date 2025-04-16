@@ -20,20 +20,18 @@
     position: sticky;
     top: 0;
     z-index: 1000;     
-    background-color: #edfafd; 
+    background-color: #135589; 
     width: 100%;
   }
   
   .logo {
     font-size: 25px;
     font-weight: 700;
-    color: #135589;
-    padding-left: 20px; 
-    margin: 0;  
+    color: #edfafd;
+    padding-left: 20px;  
     position: sticky;
     top: 0;            
     z-index: 1000;     
-    background-color: #edfafd; 
   }
   
   .konten-buku {  
@@ -51,7 +49,7 @@
   
   nav ul li a {
     text-decoration: none;
-    color: #2b2b2b;
+    color: #edfafd;
     font-weight: 400;
     transition: font-weight 0.3s ease, color 0.3s ease, transform 0.3s ease;
     display: inline-block;
@@ -59,7 +57,7 @@
   
   nav ul li a:hover {
     font-weight: 700;
-    color: #135589;
+    color: #edfafd;
     transform: scale(1.2); 
   }
   
@@ -146,7 +144,6 @@ th {
 .form-edit-buku input[type="submit"]:hover {
   background-color: #0f466c;
 }
-
 
 .form-tambah-buku {
     max-width: 500px;
@@ -236,4 +233,75 @@ table td {
 html, body {
   margin: 0;
   padding: 0;
+}
+
+/* ===== Footer ===== */
+.site-footer {
+  background-color: #135589;   /* warna gelap */
+  color: #edfafd;              /* teks terang */
+  padding: 40px 20px 20px;     /* ruang atas lebih besar */
+  font-family: 'Inter', sans-serif;
+}
+
+.footer-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+  gap: 40px;
+}
+
+.footer-brand {
+  flex: 1 1 250px;
+}
+
+.footer-brand .logo {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.footer-brand p {
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.footer-contact {
+  flex: 1 1 200px;
+}
+
+.footer-contact h3 {
+  font-size: 20px;
+  margin-bottom: 12px;
+}
+
+.footer-contact ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-contact li {
+  margin-bottom: 8px;
+}
+
+.footer-contact a {
+  color: #edfafd;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.footer-contact a:hover {
+  color: #a0c5d8;               /* warna hover yang lebih poyeh */
+  transform: translateX(4px);   /* geser sedikit ke kanan */
+}
+
+.footer-bottom {
+  text-align: center;
+  font-size: 14px;
+  margin-top: 30px;
+  border-top: 1px solid rgba(237, 250, 253, 0.3);
+  padding-top: 16px;
 }
