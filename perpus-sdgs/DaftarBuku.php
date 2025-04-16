@@ -11,6 +11,7 @@ $result = mysqli_query($koneksi, $query);
 if (mysqli_num_rows($result) > 0) {
     echo "<table border='1' cellpadding='8'>
             <tr>
+                <th>ID</th>
                 <th>Cover</th>
                 <th>Judul</th>
                 <th>Penulis</th>
@@ -20,7 +21,7 @@ if (mysqli_num_rows($result) > 0) {
                 <th>Kategori</th>
                 <th>Stok</th>";
 
-    // Tambahkan kolom "Edit" jika user adalah admin
+    // Tambahkan kolom aksi jika admin
     if ($isAdmin) {
         echo "<th>Actions</th>";
     }
@@ -34,6 +35,7 @@ if (mysqli_num_rows($result) > 0) {
             : "Tidak ada cover";
 
         echo "<tr>
+                <td>" . htmlspecialchars($row['id']) . "</td>
                 <td>$cover</td>
                 <td>" . htmlspecialchars($row['title']) . "</td>
                 <td>" . htmlspecialchars($row['author']) . "</td>
@@ -43,9 +45,8 @@ if (mysqli_num_rows($result) > 0) {
                 <td>" . htmlspecialchars($row['category']) . "</td>
                 <td>" . htmlspecialchars($row['stock']) . "</td>";
 
-        // Menampilkan tombol edit hanya jika user adalah admin
         if ($isAdmin) {
-            echo "<td><a href='EditBuku.html?id=" . $row['id'] . "'>Edit</a></td>";
+            echo "<td><a href='EditBuku.php?id=" . $row['id'] . "'>Edit</a></td>";
         }
 
         echo "</tr>";

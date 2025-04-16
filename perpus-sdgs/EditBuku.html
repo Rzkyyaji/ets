@@ -7,9 +7,10 @@
 </head>
 <body>
   <h2>Edit Buku</h2>
-  <form id="form-edit" method="post" action="EditBuku.php" enctype="multipart/form-data">
+
+  <form id="editForm" method="post" action="EditBuku.php" enctype="multipart/form-data">
     <input type="hidden" name="id" id="id">
-    
+
     <label>Judul:</label>
     <input type="text" name="judul" id="judul" required><br>
 
@@ -25,13 +26,11 @@
     <label>Deskripsi:</label>
     <textarea name="deskripsi" id="deskripsi" required></textarea><br>
 
-    <label>Cover Baru (opsional):</label>
+    <label>Cover (Opsional):</label>
     <input type="file" name="cover"><br>
 
     <input type="submit" name="submit" value="Update">
   </form>
-
-  <a href="DaftarBukuUser.html">Kembali</a>
 
   <script>
     document.addEventListener("DOMContentLoaded", function () {
@@ -39,27 +38,29 @@
       const id = urlParams.get("id");
 
       if (!id) {
-        alert("ID Buku tidak ditemukan di URL.");
+        alert("ID buku tidak ditemukan!");
         return;
       }
 
-      fetch(`EditBuku.php?id=${id}`)
+      // Set ID ke field tersembunyi
+      document.getElementById("id").value = id;
+
+      // Ambil data buku dari PHP
+      fetch("EditBuku.php?id=" + id)
         .then(response => response.json())
         .then(data => {
           if (data.error) {
             alert(data.error);
             return;
           }
-
-          document.getElementById('id').value = id;
-          document.getElementById('judul').value = data.judul;
-          document.getElementById('penulis').value = data.penulis;
-          document.getElementById('tahun').value = data.tahun;
-          document.getElementById('kategori').value = data.kategori;
-          document.getElementById('deskripsi').value = data.deskripsi;
+          document.getElementById("judul").value = data.judul;
+          document.getElementById("penulis").value = data.penulis;
+          document.getElementById("tahun").value = data.tahun;
+          document.getElementById("kategori").value = data.kategori;
+          document.getElementById("deskripsi").value = data.deskripsi;
         })
-        .catch(err => {
-          console.error("Gagal mengambil data buku:", err);
+        .catch(error => {
+          console.error("Gagal fetch data buku:", error);
         });
     });
   </script>
