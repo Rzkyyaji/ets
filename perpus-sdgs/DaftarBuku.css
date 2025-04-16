@@ -94,6 +94,60 @@ th {
     background-color: #cfe8dc;
 }
 
+.form-edit-buku {
+  max-width: 500px;
+  margin: 60px auto;
+  padding: 40px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+}
+
+.form-edit-buku h2 {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #135589;
+  font-size: 24px;
+}
+
+.form-edit-buku form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form-edit-buku input[type="text"],
+.form-edit-buku input[type="number"],
+.form-edit-buku input[type="file"] {
+  padding: 12px 16px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: border 0.3s ease;
+}
+
+.form-edit-buku input:focus {
+  border-color: #135589;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(19, 85, 137, 0.2);
+}
+
+.form-edit-buku input[type="submit"] {
+  padding: 12px;
+  background-color: #135589;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.form-edit-buku input[type="submit"]:hover {
+  background-color: #0f466c;
+}
+
+
 .form-tambah-buku {
     max-width: 500px;
     margin: 60px auto;

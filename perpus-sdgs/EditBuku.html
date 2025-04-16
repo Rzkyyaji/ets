@@ -6,34 +6,46 @@
   <link rel="stylesheet" href="DaftarBuku.css">
 </head>
 <body>
-  <h2>Edit Buku</h2>
+  <header>
+    <div class="logo">Perpustakaan Desa</div>
+    <nav>
+      <ul>
+        <li><a href="homepage_user.html">Home</a></li>
+        <li><a href="DaftarBukuUser.html">Books</a></li>
+      </ul>
+    </nav>
+</header>
 
-  <form id="editForm" method="post" action="EditBuku.php" enctype="multipart/form-data">
-    <input type="hidden" name="id" id="id">
+  <div class="form-edit-buku">
+    <h2>Edit Buku</h2>
 
-    <label>Judul:</label>
-    <input type="text" name="judul" id="judul" required><br>
+    <form id="editForm" method="post" action="EditBuku.php" enctype="multipart/form-data">
+      <input type="hidden" name="id" id="id">
 
-    <label>Penulis:</label>
-    <input type="text" name="penulis" id="penulis" required><br>
+      <label for="judul">Judul:</label>
+      <input type="text" name="judul" id="judul" required>
 
-    <label>Tahun:</label>
-    <input type="number" name="tahun" id="tahun" required><br>
+      <label for="penulis">Penulis:</label>
+      <input type="text" name="penulis" id="penulis" required>
 
-    <label>ISBN:</label>
-    <input type="text" name="isbn" id="isbn" required><br>
+      <label for="tahun">Tahun:</label>
+      <input type="number" name="tahun" id="tahun" required>
 
-    <label>Kategori:</label>
-    <input type="text" name="kategori" id="kategori" required><br>
+      <label for="isbn">ISBN:</label>
+      <input type="text" name="isbn" id="isbn" required>
 
-    <label>Stock:</label>
-    <input type="number" name="stock" id="stock" required><br>
+      <label for="kategori">Kategori:</label>
+      <input type="text" name="kategori" id="kategori" required>
 
-    <label>Cover (Opsional):</label>
-    <input type="file" name="cover"><br>
+      <label for="stock">Stock:</label>
+      <input type="number" name="stock" id="stock" required>
 
-    <input type="submit" name="submit" value="Update">
-  </form>
+      <label for="cover">Cover (Opsional):</label>
+      <input type="file" name="cover" id="cover">
+
+      <input type="submit" name="submit" value="Update">
+    </form>
+  </div>
 
   <script>
     document.addEventListener("DOMContentLoaded", function () {
