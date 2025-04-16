@@ -23,6 +23,9 @@
     <label>Kategori:</label>
     <input type="text" name="kategori" id="kategori" required><br>
 
+    <label>Stock:</label>
+    <input type="number" name="stock" id="stock" required><br>
+
     <label>Cover (Opsional):</label>
     <input type="file" name="cover"><br>
 
@@ -55,7 +58,8 @@
           document.getElementById("judul").value = data.title;
           document.getElementById("penulis").value = data.author;
           document.getElementById("tahun").value = data.year;
-          document.getElementById("deskripsi").value = data.description;
+          document.getElementById("kategori").value = data.category;
+          document.getElementById("stock").value = data.stock;  // Menambahkan stock
         })
         .catch(error => {
           console.error("Gagal fetch data buku:", error);

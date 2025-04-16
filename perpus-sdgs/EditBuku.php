@@ -29,6 +29,7 @@ if (isset($_POST['submit'])) {
   $tahun = $_POST['tahun'];
   $isbn = $_POST['isbn'];
   $kategori = $_POST['kategori'];
+  $stock = $_POST['stock'];
   $id = $_POST['id'];
 
   // Cek apakah ada gambar baru yang diupload
@@ -41,7 +42,7 @@ if (isset($_POST['submit'])) {
       $coverBaru = $data['cover_image'];
   }
 
-  // Query untuk memperbarui data buku
+  // Perbaiki query untuk update data buku (hilangkan deskripsi)
   $query = "UPDATE books SET 
               title = '$judul', 
               author = '$penulis', 
@@ -49,6 +50,7 @@ if (isset($_POST['submit'])) {
               year = '$tahun', 
               isbn = '$isbn', 
               category = '$kategori', 
+              stock = '$stock',
               cover_image = '$coverBaru' 
             WHERE id = $id";
 
