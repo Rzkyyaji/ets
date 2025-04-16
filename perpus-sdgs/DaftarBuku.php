@@ -2,10 +2,6 @@
 session_start();
 include 'koneksi.php';
 
-// Periksa apakah pengguna sudah login
-$is_logged_in = isset($_SESSION['username']);
-$is_admin = isset($_SESSION['role']) && $_SESSION['role'] === 'admin';  // Misalkan role disimpan di session
-
 $query = "SELECT * FROM books";
 $result = mysqli_query($koneksi, $query);
 
@@ -23,9 +19,9 @@ if (mysqli_num_rows($result) > 0) {
             </tr>";
 
     while ($row = mysqli_fetch_assoc($result)) {
-        $cover = isset($row['cover_image']) && $row['cover_image'] !== '' 
-            ? "<img src='Cover/" . htmlspecialchars($row['cover_image']) . "' class='book-cover' alt='Cover Buku'>" 
-            : "<img src='path_to_default_image.jpg' class='book-cover' alt='No cover available'>";
+        $cover = isset($row['cover']) && $row['cover'] !== ''
+            ? "<img src='uploads/" . htmlspecialchars($row['cover']) . "' width='80' height='100'>"
+            : "Tidak ada cover";
 
         echo "<tr>
                 <td>$cover</td>
@@ -38,19 +34,9 @@ if (mysqli_num_rows($result) > 0) {
                 <td>" . htmlspecialchars($row['stock']) . "</td>
               </tr>";
     }
+
     echo "</table>";
-
-    // Jika pengguna sudah login dan admin, tampilkan link untuk tambah buku
-    if ($is_logged_in && $is_admin) {
-        echo "<p><a href='tambah_buku.php'>Tambah Buku</a></p>";
-    }
-
 } else {
     echo "<p>Tidak ada data buku.</p>";
-}
-
-// Jika pengguna belum login, tampilkan pesan yang sesuai
-if (!$is_logged_in) {
-    echo "<p>Silakan login untuk menambahkan buku.</p>";
 }
 ?>
