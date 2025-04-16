@@ -20,6 +20,9 @@
     <label>Tahun:</label>
     <input type="number" name="tahun" id="tahun" required><br>
 
+    <label>ISBN:</label>
+    <input type="text" name="isbn" id="isbn" required><br>
+
     <label>Kategori:</label>
     <input type="text" name="kategori" id="kategori" required><br>
 
@@ -58,6 +61,7 @@
           document.getElementById("judul").value = data.title;
           document.getElementById("penulis").value = data.author;
           document.getElementById("tahun").value = data.year;
+          document.getElementById("isbn").value = data.isbn;
           document.getElementById("kategori").value = data.category;
           document.getElementById("stock").value = data.stock;  // Menambahkan stock
         })
