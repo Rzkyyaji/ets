@@ -46,7 +46,7 @@ if (mysqli_num_rows($result) > 0) {
                 <td>" . htmlspecialchars($row['stock']) . "</td>";
 
         if ($isAdmin) {
-            echo "<td><a href='EditBuku.php?id=" . $row['id'] . "'>Edit</a></td>";
+            echo "<td><a href='EditBuku.html?id=" . $row['id'] . "'>Edit</a></td>";
         }
 
         echo "</tr>";

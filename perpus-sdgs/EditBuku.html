@@ -23,9 +23,6 @@
     <label>Kategori:</label>
     <input type="text" name="kategori" id="kategori" required><br>
 
-    <label>Deskripsi:</label>
-    <textarea name="deskripsi" id="deskripsi" required></textarea><br>
-
     <label>Cover (Opsional):</label>
     <input type="file" name="cover"><br>
 
@@ -34,6 +31,7 @@
 
   <script>
     document.addEventListener("DOMContentLoaded", function () {
+      // Ambil ID buku dari query string
       const urlParams = new URLSearchParams(window.location.search);
       const id = urlParams.get("id");
 
@@ -45,7 +43,7 @@
       // Set ID ke field tersembunyi
       document.getElementById("id").value = id;
 
-      // Ambil data buku dari PHP
+      // Ambil data buku dari PHP menggunakan Fetch API
       fetch("EditBuku.php?id=" + id)
         .then(response => response.json())
         .then(data => {
@@ -53,11 +51,11 @@
             alert(data.error);
             return;
           }
-          document.getElementById("judul").value = data.judul;
-          document.getElementById("penulis").value = data.penulis;
-          document.getElementById("tahun").value = data.tahun;
-          document.getElementById("kategori").value = data.kategori;
-          document.getElementById("deskripsi").value = data.deskripsi;
+          // Isi form dengan data buku
+          document.getElementById("judul").value = data.title;
+          document.getElementById("penulis").value = data.author;
+          document.getElementById("tahun").value = data.year;
+          document.getElementById("deskripsi").value = data.description;
         })
         .catch(error => {
           console.error("Gagal fetch data buku:", error);
