@@ -2,57 +2,43 @@
 session_start();
 include 'koneksi.php';
 
-$query = "SELECT * FROM books";
-$result = mysqli_query($koneksi, $query);
-
-if (mysqli_num_rows($result) > 0) {
-    echo "<table border='1' cellpadding='8'>
-            <tr>
-                <th>ID</th>
-                <th>Cover</th>
-                <th>Judul</th>
-                <th>Penulis</th>
-                <th>Penerbit</th>
-                <th>Tahun</th>
-                <th>ISBN</th>
-                <th>Kategori</th>
-                <th>Stock</th>";
-
-    // Kolom aksi hanya jika admin atau user login
-    if ($isAdmin || $isUser) {
-        echo "<th>Aksi</th>";
-    }
-
-    echo "</tr>";
-
-    while ($row = mysqli_fetch_assoc($result)) {
-        $coverPath = "Cover/" . htmlspecialchars($row['cover_image']);
-        $cover = (!empty($row['cover_image']) && file_exists($coverPath))
-            ? "<img src='$coverPath' width='80' height='100'>"
-            : "Tidak ada cover";
-
-        echo "<tr>
-                <td>" . htmlspecialchars($row['id']) . "</td>
-                <td>$cover</td>
-                <td>" . htmlspecialchars($row['title']) . "</td>
-                <td>" . htmlspecialchars($row['author']) . "</td>
-                <td>" . htmlspecialchars($row['publisher']) . "</td>
-                <td>" . htmlspecialchars($row['year']) . "</td>
-                <td>" . htmlspecialchars($row['isbn']) . "</td>
-                <td>" . htmlspecialchars($row['category']) . "</td>
-                <td>" . htmlspecialchars($row['stock']) . "</td>";
-
-        if ($isAdmin) {
-            echo "<td><a href='EditBuku.html?id=" . $row['id'] . "'>Edit</a></td>";
-        } elseif ($isUser) {
-            echo "<td><a href='PinjamBuku.php?id=" . $row['id'] . "'>Pinjam</a></td>";
-        }
-
-        echo "</tr>";
-    }
-
-    echo "</table>";
-} else {
-    echo "<p>Tidak ada data buku.</p>";
+if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'anggota') {
+    echo "<script>alert('Akses ditolak.'); window.location.href='DaftarBukuUser.html';</script>";
+    exit();
 }
+
+$user_id = $_SESSION['user_id'];
+$book_id = intval($_GET['id']);
+
+// Ambil detail buku
+$query = "SELECT * FROM books WHERE id = $book_id";
+$result = mysqli_query($koneksi, $query);
+$book = mysqli_fetch_assoc($result);
+
+if (!$book) {
+    echo "<script>alert('Buku tidak ditemukan.'); window.location.href='homepage_user.html';</script>";
+    exit();
+}
+
+if ($book['stock'] <= 0) {
+    echo "<script>alert('Stok buku habis.'); window.location.href='homepage_user.html';</script>";
+    exit();
+}
+
+// Kurangi stok buku
+mysqli_query($koneksi, "UPDATE books SET stock = stock - 1 WHERE id = $book_id");
+
+// Tambahkan ke peminjaman
+$tanggalPinjam = date('Y-m-d');
+mysqli_query($koneksi, "INSERT INTO borrowings (user_id, book_id, borrow_date, status)
+                        VALUES ($user_id, $book_id, '$tanggalPinjam', 'dipinjam')");
+
+// Pop up konfirmasi
+$judul = htmlspecialchars($book['title']);
+$penulis = htmlspecialchars($book['author']);
+
+echo "<script>
+    alert('Buku berhasil dipinjam:\\nJudul: $judul\\nPenulis: $penulis');
+    window.location.href='DaftarBukuUser.htm;';
+</script>";
 ?>

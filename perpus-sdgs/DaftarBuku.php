@@ -48,7 +48,7 @@ if (mysqli_num_rows($result) > 0) {
                 if ($isAdmin) {
                     echo "<td><a href='EditBuku.html?id=" . $row['id'] . "'>Edit</a></td>";
                 } elseif ($isUser) {
-                    echo "<td><a href='Peminjaman.html?id=" . $row['id'] . "'>Pinjam</a></td>";
+                    echo "<td><a href='Peminjaman.php?id=" . $row['id'] . "'>Pinjam</a></td>";
                 }                
 
         echo "</tr>";
