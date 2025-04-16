@@ -199,8 +199,8 @@
   
   /* ===== Footer ===== */
 .site-footer {
-  background-color: #135589;   /* warna gelap */
-  color: #edfafd;              /* teks terang */
+  background-color: #edfafd;   /* warna gelap */
+  color: #135589;              /* teks terang */
   padding: 40px 20px 20px;     /* ruang atas lebih besar */
   font-family: 'Inter', sans-serif;
 }
@@ -249,7 +249,7 @@
 }
 
 .footer-contact a {
-  color: #edfafd;
+  color: #135589;
   text-decoration: none;
   font-weight: 500;
   transition: color 0.2s ease, transform 0.2s ease;
