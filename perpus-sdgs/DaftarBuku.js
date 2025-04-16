@@ -1,16 +1,4 @@
 document.addEventListener("DOMContentLoaded", function () {
-    fetch("DaftarBuku.php")
-        .then(response => response.text())
-        .then(data => {
-            document.getElementById("book-table").innerHTML = data;
-        })
-        .catch(error => {
-            document.getElementById("book-table").innerHTML = "Gagal memuat data buku.";
-            console.error("Terjadi kesalahan:", error);
-        });
-});
-
-document.addEventListener("DOMContentLoaded", function () {
 // Ambil daftar buku
 fetch("DaftarBuku.php")
 .then(response => response.text())
