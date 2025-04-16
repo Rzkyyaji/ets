@@ -37,8 +37,17 @@ mysqli_query($koneksi, "INSERT INTO borrowings (user_id, book_id, borrow_date, s
 $judul = htmlspecialchars($book['title']);
 $penulis = htmlspecialchars($book['author']);
 
+echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
 echo "<script>
-    alert('Buku berhasil dipinjam:\\nJudul: $judul\\nPenulis: $penulis');
-    window.location.href='DaftarBukuUser.htm;';
+    document.addEventListener('DOMContentLoaded', function() {
+        Swal.fire({
+            title: 'Berhasil!',
+            text: 'Buku berhasil dipinjam.\\nJudul: $judul\\nPenulis: $penulis',
+            icon: 'success',
+            confirmButtonText: 'OK'
+        }).then(() => {
+            window.location.href = 'DaftarBukuUser.html';
+        });
+    });
 </script>";
 ?>
