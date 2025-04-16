@@ -16,6 +16,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id'])) {
     }
     exit;
 }
+// Cek jika request untuk menghapus buku
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['hapus'])) {
+  $id = intval($_POST['id']);  
+  
+  $cek = mysqli_query($koneksi, "SELECT cover_image FROM books WHERE id = $id");
+  if (mysqli_num_rows($cek) > 0) {
+      $buku = mysqli_fetch_assoc($cek);
+      
+      if (!empty($buku['cover_image'])) {
+          $coverPath = "Cover/" . $buku['cover_image'];
+          if (file_exists($coverPath)) {
+              unlink($coverPath);
+          }
+      }
+
+      $hapus = mysqli_query($koneksi, "DELETE FROM books WHERE id = $id");
+      if ($hapus) {
+          echo "Berhasil dihapus";
+      } else {
+          echo "Gagal menghapus buku!";
+      }
+  } else {
+      echo "Buku tidak ditemukan!";
+  }
+  exit;
+}
 
 // Jika request POST, proses update data buku
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
@@ -59,5 +85,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
     } else {
         echo "Error: " . mysqli_error($koneksi);
     }
-}
+  
+  }
 ?>

@@ -33,6 +33,7 @@
     <input type="file" name="cover"><br>
 
     <input type="submit" name="submit" value="Update">
+    <button type="button" onclick="hapusBuku()">Hapus</button>
   </form>
 
   <script>
@@ -69,6 +70,28 @@
           console.error("Gagal fetch data buku:", error);
         });
     });
+    
+    function hapusBuku() {
+    const id = document.getElementById("id").value;
+    if (confirm("Apakah Anda yakin ingin menghapus buku ini?")) {
+      fetch("EditBuku.php", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: `hapus=1&id=${id}`
+      })
+      .then(res => res.text())
+      .then(response => {
+        alert("Buku berhasil dihapus!");
+        window.location.href = "DaftarBukuUser.html";
+      })
+      .catch(err => {
+        console.error("Gagal menghapus buku:", err);
+        alert("Gagal menghapus buku!");
+      });
+    }
+  }
   </script>
 </body>
 </html>
