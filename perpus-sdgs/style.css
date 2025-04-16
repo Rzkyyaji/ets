@@ -45,9 +45,6 @@
     transform: scale(1.2); /* efek zoom */
   }
   
-  
-  
-  
   .hero {
     display: flex;
     justify-content: space-between;
