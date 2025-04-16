@@ -1,8 +1,35 @@
-<form action="TambahBuku.php" method="POST" enctype="multipart/form-data">
-    <input type="text" name="judul" placeholder="Judul" required>
-    <input type="text" name="penulis" placeholder="Penulis" required>
-    <input type="number" name="tahun" placeholder="Tahun" required>
-    <input type="file" name="cover" accept="image/*" required>
-    <button type="submit">Tambah Buku</button>
-  </form>
-  
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tambah Buku</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="DaftarBuku.css" />
+</head>
+
+<body>
+
+  <header>
+    <div class="logo">Perpustakaan Desa</div>
+    <nav>
+      <ul>
+        <li><a href="homepage_user.html">Home</a></li>
+        <li><a href="DaftarBukuUser.html">Books</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="form-tambah-buku">
+    <h2>Tambah Buku</h2>
+    <form action="TambahBuku.php" method="POST" enctype="multipart/form-data">
+      <input type="text" name="judul" placeholder="Judul" required />
+      <input type="text" name="penulis" placeholder="Penulis" required />
+      <input type="number" name="tahun" placeholder="Tahun" required />
+      <input type="file" name="cover" accept="image/*" required />
+      <button type="submit">Tambah Buku</button>
+    </form>
+  </div>
+</body>
+</html>
