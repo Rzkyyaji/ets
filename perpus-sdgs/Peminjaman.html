@@ -22,18 +22,7 @@
     </div>
   </div>
 
-  <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      fetch("DaftarPeminjaman.php")
-        .then(response => response.text())
-        .then(data => {
-          document.getElementById("book-table").innerHTML = data;
-        })
-        .catch(error => {
-          document.getElementById("book-table").innerHTML = "Gagal memuat data buku.";
-          console.error("Terjadi kesalahan:", error);
-        });
-    });
-  </script>
+  <script src="DaftarBuku.js"></script>
+  
 </body>
 </html>
