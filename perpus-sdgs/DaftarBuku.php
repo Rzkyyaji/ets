@@ -4,6 +4,8 @@ include 'koneksi.php';
 
 // Memeriksa apakah user sudah login dan apakah role-nya adalah admin
 $isAdmin = isset($_SESSION['role']) && $_SESSION['role'] === 'admin';
+//memerika user
+$isUser = isset($_SESSION['role']) && $_SESSION['role'] == 'user';
 
 $query = "SELECT * FROM books";
 $result = mysqli_query($koneksi, $query);
@@ -47,6 +49,7 @@ if (mysqli_num_rows($result) > 0) {
 
         if ($isAdmin) {
             echo "<td><a href='EditBuku.html?id=" . $row['id'] . "'>Edit</a></td>";
+
         }
 
         echo "</tr>";
