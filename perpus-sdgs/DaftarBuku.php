@@ -20,7 +20,7 @@ if (mysqli_num_rows($result) > 0) {
 
     while ($row = mysqli_fetch_assoc($result)) {
         $cover = isset($row['cover']) && $row['cover'] !== ''
-            ? "<img src='uploads/" . htmlspecialchars($row['cover']) . "' width='80' height='100'>"
+            ? "<img src='Cover/" . htmlspecialchars($row['cover']) . "' width='80' height='100'>"
             : "Tidak ada cover";
 
         echo "<tr>
