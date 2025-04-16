@@ -23,9 +23,6 @@
     <label>Kategori:</label>
     <input type="text" name="kategori" id="kategori" required><br>
 
-    <label>Deskripsi:</label>
-    <textarea name="deskripsi" id="deskripsi" required></textarea><br>
-
     <label>Cover (Opsional):</label>
     <input type="file" name="cover"><br>
 
@@ -58,7 +55,6 @@
           document.getElementById("judul").value = data.title;
           document.getElementById("penulis").value = data.author;
           document.getElementById("tahun").value = data.year;
-          document.getElementById("kategori").value = data.category;
           document.getElementById("deskripsi").value = data.description;
         })
         .catch(error => {

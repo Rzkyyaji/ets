@@ -29,7 +29,6 @@ if (isset($_POST['submit'])) {
   $tahun = $_POST['tahun'];
   $isbn = $_POST['isbn'];
   $kategori = $_POST['kategori'];
-  $deskripsi = $_POST['deskripsi'];
   $id = $_POST['id'];
 
   // Cek apakah ada gambar baru yang diupload
@@ -50,7 +49,6 @@ if (isset($_POST['submit'])) {
               year = '$tahun', 
               isbn = '$isbn', 
               category = '$kategori', 
-              description = '$deskripsi', 
               cover_image = '$coverBaru' 
             WHERE id = $id";
 
