@@ -1,51 +1,57 @@
 <?php
-session_start();
 include 'koneksi.php';
 
-// Cek role admin
-if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
-    http_response_code(403);
-    echo "Akses ditolak. Halaman ini hanya untuk admin.";
-    exit;
-}
-
+// Cek apakah data dikirim lewat POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $judul = $_POST['judul'];
     $penulis = $_POST['penulis'];
     $penerbit = $_POST['penerbit'];
-    $tahun = intval($_POST['tahun']);
+    $tahun = $_POST['tahun'];
     $isbn = $_POST['isbn'];
     $kategori = $_POST['kategori'];
-    $stok = intval($_POST['stok']);
+    $stok = $_POST['stok'];
 
-    // Proses file cover
-    if (isset($_FILES['cover']) && $_FILES['cover']['error'] === UPLOAD_ERR_OK) {
-        $coverName = basename($_FILES['cover']['name']);
-$coverTmp = $_FILES['cover']['tmp_name'];
-$coverPath = 'Cover/' . $coverName;
+    // Upload cover
+    $cover_name = $_FILES['cover']['name'];
+    $cover_tmp = $_FILES['cover']['tmp_name'];
+    $ext = pathinfo($cover_name, PATHINFO_EXTENSION);
+    $nama_baru = uniqid('cover_', true) . '.' . $ext;
+    $upload_path = 'Cover/' . $nama_baru;
 
-// Cek folder Cover
-if (!is_dir('Cover')) {
-    mkdir('Cover', 0777, true);
-}
-
-if (move_uploaded_file($coverTmp, $coverPath)) {
-    $query = "INSERT INTO books (title, author, publisher, year, isbn, category, stock, cover_image) 
-              VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-
-    $stmt = mysqli_prepare($koneksi, $query);
-    mysqli_stmt_bind_param($stmt, 'sssissis', $judul, $penulis, $penerbit, $tahun, $isbn, $kategori, $stok, $coverName);
-
-    if (mysqli_stmt_execute($stmt)) {
-        echo "Buku berhasil ditambahkan.";
-    } else {
-        echo "Gagal menambahkan buku.";
+    if (!move_uploaded_file($cover_tmp, $upload_path)) {
+        echo json_encode(['error' => 'Upload cover gagal.']);
+        exit;
     }
-} else {
-    echo "Gagal mengunggah gambar.";
-}
+
+    // Cari ID kosong (gap)
+    $sql_gap = "SELECT t1.id + 1 AS next_id
+                FROM books t1
+                LEFT JOIN books t2 ON t1.id + 1 = t2.id
+                WHERE t2.id IS NULL
+                ORDER BY t1.id
+                LIMIT 1";
+
+    $result = mysqli_query($koneksi, $sql_gap);
+    $id_baru = null;
+
+    if ($result && mysqli_num_rows($result) > 0) {
+        $row = mysqli_fetch_assoc($result);
+        $id_baru = $row['next_id'];
+    }
+
+    // Jika tidak ada ID kosong, biarkan NULL (auto_increment)
+    if ($id_baru) {
+        $stmt = $koneksi->prepare("INSERT INTO books (id, title, author, publisher, year, isbn, category, stock, cover_image) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("issssssis", $id_baru, $judul, $penulis, $penerbit, $tahun, $isbn, $kategori, $stok, $nama_baru);
     } else {
-        echo "File cover tidak valid.";
+        $stmt = $koneksi->prepare("INSERT INTO books (title, author, publisher, year, isbn, category, stock, cover_image) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("ssssssis", $judul, $penulis, $penerbit, $tahun, $isbn, $kategori, $stok, $nama_baru);
+    }
+
+    if ($stmt->execute()) {
+        echo json_encode(['message' => 'Buku berhasil ditambahkan.']);
+    } else {
+        echo json_encode(['error' => 'Gagal menambahkan buku: ' . $stmt->error]);
     }
 }
 ?>

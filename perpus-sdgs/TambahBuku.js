@@ -1,24 +1,28 @@
-document.addEventListener("DOMContentLoaded", () => {
-    const form = document.getElementById("formTambahBuku");
+document.addEventListener('DOMContentLoaded', function () {
+    const form = document.querySelector('form');
   
-    form.addEventListener("submit", async function (e) {
-      e.preventDefault();
+    form.addEventListener('submit', function (e) {
+      e.preventDefault(); // Mencegah reload halaman
   
       const formData = new FormData(form);
   
-      try {
-        const response = await fetch("TambahBuku.php", {
-          method: "POST",
-          body: formData,
+      fetch('TambahBuku.php', {
+        method: 'POST',
+        body: formData
+      })
+        .then(response => response.json())
+        .then(data => {
+          if (data.message) {
+            alert(data.message);
+            form.reset(); // Kosongkan form setelah berhasil
+          } else if (data.error) {
+            alert('Error: ' + data.error);
+          }
+        })
+        .catch(error => {
+          console.error('Terjadi kesalahan:', error);
+          alert('Terjadi kesalahan saat menambahkan buku.');
         });
-  
-        const result = await response.text(); // bisa juga pakai .json() kalau kamu return JSON dari PHP
-        alert(result);
-        window.location.href = "DaftarBukuUser.html";
-      } catch (error) {
-        console.error("Gagal mengirim data:", error);
-        alert("Terjadi kesalahan saat mengirim data.");
-      }
     });
   });
   
