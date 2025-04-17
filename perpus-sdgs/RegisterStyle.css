@@ -86,9 +86,9 @@
   
   /* ===== Footer ===== */
 .site-footer {
-  background-color: #135589;   /* warna gelap */
-  color: #edfafd;              /* teks terang */
-  padding: 40px 20px 20px;     /* ruang atas lebih besar */
+  background-color: #135589;  
+  color: #edfafd;              
+  padding: 40px 20px 20px;    
   font-family: 'Inter', sans-serif;
 }
 
@@ -139,12 +139,12 @@
   color: #edfafd;
   text-decoration: none;
   font-weight: 500;
-  transition: color 0.2s ease, transform 0.2s ease;
+  transition: color 0.4s ease, transform 0.4s ease;
 }
 
 .footer-contact a:hover {
-  color: #a0c5d8;               /* warna hover yang lebih poyeh */
-  transform: translateX(4px);   /* geser sedikit ke kanan */
+  color: #a0c5d8;             
+  transform: translateX(4px);  
 }
 
 .footer-bottom {
