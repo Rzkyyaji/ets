@@ -11,7 +11,7 @@
   }
   
   header {
-    background-color: #ffffff;
+    background-color: #135589;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -22,7 +22,7 @@
   .logo {
     font-size: 24px;
     font-weight: 700;
-    color: #004b49;
+    color: #edfafd;
   }
   
   nav ul {
@@ -33,7 +33,7 @@
   
   nav ul li a {
     text-decoration: none;
-    color: #2b2b2b;
+    color: #edfafd;
     font-weight: 500;
   }
   
@@ -51,7 +51,7 @@
   }
   
   .judul-login {
-    color: #004b49;
+    color: #135589;
     margin-bottom: 20px;
   }
   
@@ -64,14 +64,14 @@
   }
   
   form input:focus {
-    border-color: #004b49;
+    border-color: #135589;
     outline: none;
     box-shadow: 0 0 0 2px rgba(0, 75, 73, 0.1);
   }
   
   form button {
     padding: 12px;
-    background-color: #004b49;
+    background-color: #135589;
     color: white;
     border: none;
     border-radius: 8px;
