@@ -61,7 +61,6 @@
     transform: scale(1.2); 
   }
   
-
 body {
     font-family: 'Segoe UI', sans-serif;
     background-color: #eaf4ee;
@@ -305,4 +304,64 @@ html, body {
   margin-top: 30px;
   border-top: 1px solid rgba(237, 250, 253, 0.3);
   padding-top: 16px;
+}
+
+/*cari & filter
+/* Style untuk filter bar */
+.filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  background-color: #f4f4f4;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1.5rem;
+}
+
+/* Input pencarian */
+#search-input {
+  flex: 1 1 250px;
+  padding: 0.6rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+#search-input:focus {
+  border-color: #6a5acd; /* ungu lembut */
+  box-shadow: 0 0 0 2px rgba(106, 90, 205, 0.2);
+}
+
+/* Dropdown kategori */
+#category-filter {
+  flex: 1 1 200px;
+  padding: 0.6rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  background-color: #fff;
+  transition: border-color 0.3s ease;
+}
+
+#category-filter:focus {
+  border-color: #6a5acd;
+  box-shadow: 0 0 0 2px rgba(106, 90, 205, 0.2);
+}
+
+/* Responsif untuk mobile */
+@media (max-width: 600px) {
+  .filter-bar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  #search-input,
+  #category-filter {
+    width: 100%;
+  }
 }
