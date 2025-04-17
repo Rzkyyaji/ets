@@ -23,7 +23,7 @@
 
   <div class="form-tambah-buku">
     <h2>Tambah Buku</h2>
-    <form action="TambahBuku.php" method="POST" enctype="multipart/form-data">
+    <form id="formTambahBuku" enctype="multipart/form-data">
       <input type="text" name="judul" placeholder="Judul" required />
       <input type="text" name="penulis" placeholder="Penulis" required />
       <input type="text" name="penerbit" placeholder="Penerbit" required />
@@ -31,9 +31,12 @@
       <input type="number" name="isbn" placeholder="ISBN" required />
       <input type="text" name="kategori" placeholder="Kategori" required />
       <input type="number" name="stok" placeholder="Stok" required />
-      <input type="file" name="cover" accept="image/*" required />
+      <input type="file" name="cover" id="cover" accept="image/*" required />
       <button type="submit">Tambah Buku</button>
     </form>
+    
+    <script src="TambahBuku.js"></script>
+    
   </div>
 </body>
 </html>

@@ -1,40 +1,51 @@
 <?php
 session_start();
+include 'koneksi.php';
 
-// Periksa apakah pengguna sudah login dan admin
-if (!isset($_SESSION['username']) || $_SESSION['role'] !== 'admin') {
-    // Jika belum login atau bukan admin, alihkan ke halaman login
-    header('Location: login.php');
+// Cek role admin
+if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
+    http_response_code(403);
+    echo "Akses ditolak. Halaman ini hanya untuk admin.";
     exit;
 }
 
-echo "<h1>Tambah Buku</h1>";
-// Form untuk menambahkan buku
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $judul = $_POST['judul'];
+    $penulis = $_POST['penulis'];
+    $penerbit = $_POST['penerbit'];
+    $tahun = intval($_POST['tahun']);
+    $isbn = $_POST['isbn'];
+    $kategori = $_POST['kategori'];
+    $stok = intval($_POST['stok']);
+
+    // Proses file cover
+    if (isset($_FILES['cover']) && $_FILES['cover']['error'] === UPLOAD_ERR_OK) {
+        $coverName = basename($_FILES['cover']['name']);
+$coverTmp = $_FILES['cover']['tmp_name'];
+$coverPath = 'Cover/' . $coverName;
+
+// Cek folder Cover
+if (!is_dir('Cover')) {
+    mkdir('Cover', 0777, true);
+}
+
+if (move_uploaded_file($coverTmp, $coverPath)) {
+    $query = "INSERT INTO books (title, author, publisher, year, isbn, category, stock, cover_image) 
+              VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+
+    $stmt = mysqli_prepare($koneksi, $query);
+    mysqli_stmt_bind_param($stmt, 'sssissis', $judul, $penulis, $penerbit, $tahun, $isbn, $kategori, $stok, $coverName);
+
+    if (mysqli_stmt_execute($stmt)) {
+        echo "Buku berhasil ditambahkan.";
+    } else {
+        echo "Gagal menambahkan buku.";
+    }
+} else {
+    echo "Gagal mengunggah gambar.";
+}
+    } else {
+        echo "File cover tidak valid.";
+    }
+}
 ?>
-<form action="proses_tambah_buku.php" method="POST" enctype="multipart/form-data">
-    <label for="title">Judul Buku:</label>
-    <input type="text" name="title" required><br>
-    
-    <label for="author">Penulis:</label>
-    <input type="text" name="author" required><br>
-    
-    <label for="publisher">Penerbit:</label>
-    <input type="text" name="publisher" required><br>
-    
-    <label for="year">Tahun Terbit:</label>
-    <input type="text" name="year" required><br>
-    
-    <label for="isbn">ISBN:</label>
-    <input type="text" name="isbn" required><br>
-    
-    <label for="category">Kategori:</label>
-    <input type="text" name="category" required><br>
-    
-    <label for="stock">Stok:</label>
-    <input type="number" name="stock" required><br>
-    
-    <label for="cover_image">Cover Buku:</label>
-    <input type="file" name="cover_image"><br>
-    
-    <button type="submit">Tambah Buku</button>
-</form>
