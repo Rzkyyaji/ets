@@ -1,3 +1,8 @@
+fetch("CekRole.php")
+    .then(response => response.text())
+    .then(role => {
+      const navList = document.querySelector("nav ul");
+
 document.addEventListener("DOMContentLoaded", function () {
   // Ambil daftar buku
   fetch("DaftarBuku.php")
@@ -9,12 +14,6 @@ document.addEventListener("DOMContentLoaded", function () {
       document.getElementById("book-table").innerHTML = "Gagal memuat data buku.";
       console.error("Terjadi kesalahan:", error);
     });
-
-
-  fetch("CekRole.php")
-    .then(response => response.text())
-    .then(role => {
-      const navList = document.querySelector("nav ul");
 
       // Jika role adalah admin
       if (role === "admin") {
