@@ -34,14 +34,14 @@ document.addEventListener("DOMContentLoaded", function () {
       alert("Gagal mengambil data buku. Silakan coba lagi.");
     });
 
-  // Tangani hapus
+  // Hapus
   const hapusBtn = document.getElementById("hapus");
 
   if (hapusBtn) {
     hapusBtn.addEventListener("click", function () {
       if (!confirm("Yakin ingin menghapus buku ini?")) return;
 
-      // Mengirim permintaan untuk menghapus buku
+      
       fetch("EditBuku.php", {
         method: "POST",
         headers: {
