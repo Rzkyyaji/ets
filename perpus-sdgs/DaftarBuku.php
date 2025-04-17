@@ -6,7 +6,6 @@ include 'koneksi.php';
 $isAdmin = isset($_SESSION['role']) && $_SESSION['role'] === 'admin';
 $isUser  = isset($_SESSION['role']) && $_SESSION['role'] === 'anggota';
 $isGuest = !$isAdmin && !$isUser; // Belum login
-
 $query = "SELECT * FROM books";
 $result = mysqli_query($koneksi, $query);
 

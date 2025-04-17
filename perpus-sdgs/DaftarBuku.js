@@ -1,8 +1,3 @@
-fetch("CekRole.php")
-    .then(response => response.text())
-    .then(role => {
-      const navList = document.querySelector("nav ul");
-
 document.addEventListener("DOMContentLoaded", function () {
   // Ambil daftar buku
   fetch("DaftarBuku.php")
@@ -15,33 +10,29 @@ document.addEventListener("DOMContentLoaded", function () {
       console.error("Terjadi kesalahan:", error);
     });
 
-      // Jika role adalah admin
+  // Cek role user
+  fetch("CekRole.php")
+    .then(response => response.text())
+    .then(role => {
+      role = role.trim(); // penting!
+
+      const navList = document.querySelector("nav ul");
+      if (!navList) return;
+
       if (role === "admin") {
-        // Tambah tombol "Tambah Buku"
+        // Tambah Buku
         const liTambah = document.createElement("li");
-        const linkTambah = document.createElement("a");
-        linkTambah.href = "TambahBuku.html";
-        linkTambah.textContent = "Tambah Buku";
-        liTambah.appendChild(linkTambah);
+        liTambah.innerHTML = `<a href="TambahBuku.html">Tambah Buku</a>`;
         navList.appendChild(liTambah);
 
-        // Tambah tombol "Rekap"
+        // Rekap
         const liRekap = document.createElement("li");
-        const linkRekap = document.createElement("a");
-        linkRekap.href = "RekapPeminjaman.html";
-        linkRekap.textContent = "Rekap";
-        liRekap.appendChild(linkRekap);
+        liRekap.innerHTML = `<a href="RekapPeminjaman.html">Rekap</a>`;
         navList.appendChild(liRekap);
-      }
-      // Jika role adalah anggota (user biasa)
-      else if (role === "anggota") {
-        // Tambah tombol "Data Peminjaman Buku"
-        const liBuku = document.createElement("li");
-        const linkBuku = document.createElement("a");
-        linkBuku.href = "DataPeminjamanUser.html";
-        linkBuku.textContent = "Data Peminjaman Buku";
-        liBuku.appendChild(linkBuku);
-        navList.appendChild(liBuku);
+      } else if (role === "anggota") {
+        const liUser = document.createElement("li");
+        liUser.innerHTML = `<a href="DataPeminjamanUser.html">Data Peminjaman Buku</a>`;
+        navList.appendChild(liUser);
       }
     })
     .catch(error => {
