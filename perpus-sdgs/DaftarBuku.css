@@ -197,7 +197,7 @@ th {
   .form-tambah-buku button:hover {
     background-color: #0f466c;
   }
-
+  
 /* CSS untuk memperbaiki tampilan gambar di dalam tabel */
 .book-cover {
   width: 80px; /* Ukuran lebar gambar */
