@@ -1,0 +1,119 @@
+
+
+/* 1. Reset & Box-Sizing */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  /* 2. Container Umum */
+  .container {
+    width: 100%;
+    max-width: 1200px; /* Desktop max */
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+  
+  /* 3. Gambar dan Media */
+  img, video {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+  
+  /* 4. Navigasi */
+  nav ul {
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+  }
+  nav li {
+    margin: 0.5rem;
+  }
+  
+  /* 5. Flex Utilities */
+  .flex { display: flex; flex-wrap: wrap; }
+  .flex-center { justify-content: center; align-items: center; }
+  .flex-column { display: flex; flex-direction: column; }
+  
+  /* 6. Form Group */
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+  }
+  .form-group label {
+    margin-bottom: 0.5rem;
+  }
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    padding: 0.5rem;
+    width: 100%; /* full width in container */
+  }
+  
+  /* 7. Button Responsif */
+  button, .btn {
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  
+  /* 8. Horizontal Overflow */
+  body {
+    overflow-x: hidden;
+  }
+  
+  /* 9. Breakpoints */
+  
+  /* Mobile: max-width 767px */
+  @media (max-width: 767px) {
+    /* Header: logo + nav tumpuk */
+    header .flex {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    /* Konten utama full width */
+    .main-content {
+      padding: 1rem 0;
+    }
+    /* Tombol lebih besar untuk jari */
+    button, .btn {
+      width: 100%;
+      text-align: center;
+    }
+  }
+  
+  /* Tablet: 768px–1023px */
+  @media (min-width: 768px) and (max-width: 1023px) {
+    /* Dua kolom yang wrap */
+    .two-column {
+      display: flex;
+      flex-wrap: wrap;
+    }
+    .two-column > * {
+      flex: 1 1 45%;
+      margin: 1rem;
+    }
+  }
+  
+  /* Desktop: >=1024px */
+  @media (min-width: 1024px) {
+    /* Grid contohnya */
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+    }
+  }
+  
+  /* 10. Lazy-loading untuk gambar besar */
+  img[data-src] {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  img[data-src].loaded {
+    opacity: 1;
+  }
