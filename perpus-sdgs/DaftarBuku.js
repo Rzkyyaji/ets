@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
       console.error("Terjadi kesalahan:", error);
     });
 
-  // Cek role user
+
   fetch("CekRole.php")
     .then(response => response.text())
     .then(role => {
