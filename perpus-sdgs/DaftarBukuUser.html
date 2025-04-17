@@ -7,6 +7,17 @@
 </head>
 
 <body>
+  <div class="filter-bar">
+    <input type="text" id="search-input" placeholder="Cari judul atau penulis...">
+    <select id="category-filter">
+      <option value="">Semua Kategori</option>
+      <option value="Edukasi">Edukasi</option>
+      <option value="Teknologi">Teknologi</option>
+      <option value="Fiksi">Fiksi</option>
+      <!-- Tambahkan kategori lainnya -->
+    </select>
+  </div>
+  
     <header>
         <div class="logo">Perpustakaan Desa</div>
         <nav>
@@ -23,6 +34,7 @@
       </div>
       
   <script src="DaftarBuku.js"></script>
+  <script src="Pencarian.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 </body>
